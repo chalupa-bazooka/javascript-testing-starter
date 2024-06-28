@@ -6,6 +6,9 @@ export function getCoupons() {
   ];
 }
 
+// the function returns an array that's not empty
+// each object inside that array has 2 properties: code (with a string) & discount (number between 0.1 & 1)
+
 // Lesson: Positive and negative testing
 export function calculateDiscount(price, discountCode) {
   if (typeof price !== 'number' || price <= 0) {
