@@ -70,18 +70,33 @@ describe("validateUserInput", () => {
         expect(validateUserInput("goga", 19)).toMatch(/successful/)
     })
 
-    it("should return 'Invalid username' if the username is invalid", () => {
-        expect(validateUserInput("go", 19)).toMatch(/invalid username/i)
+    it("should return 'Invalid username' if the username isn't a string", () => {
         expect(validateUserInput(19, 19)).toMatch(/invalid username/i)
     })
 
-    it("should return 'Invalid age' if the age is invalid", () => {
-        expect(validateUserInput("goga", 17)).toMatch(/invalid age/i)
+    it("should return 'Invalid username' if the username is too short", () => {
+        expect(validateUserInput("go", 19)).toMatch(/invalid username/i)
+    })
+
+    it("should return 'Invalid username' if the username is too long", () => {
+        expect(validateUserInput("A".repeat(256), 19)).toMatch(/invalid username/i)
+    })
+    
+    it("should return 'Invalid age' if the age isn't a number", () => {
         expect(validateUserInput("goga", "19")).toMatch(/invalid age/i)
+    })
+    
+    it("should return 'Invalid age' if the age is below 18", () => {
+        expect(validateUserInput("goga", 17)).toMatch(/invalid age/i)
+    })
+
+    it("should return 'Invalid age' if the age is above 200", () => {
+        expect(validateUserInput("goga", 201)).toMatch(/invalid age/i)
     })
 
     it("should return 'Invalid username, Invalid age' if both the username & age are invalid", () => {
-        expect(validateUserInput("go", 17)).toMatch(/invalid username, invalid age/i)
+        expect(validateUserInput("go", 17)).toMatch(/invalid username/i)
+        expect(validateUserInput("go", 17)).toMatch(/invalid age/i)
     })
 
 
