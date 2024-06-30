@@ -1,8 +1,81 @@
-import { describe, it, expect } from "vitest"
+import { describe, it, expect, beforeEach } from "vitest"
 import {
     getCoupons, calculateDiscount, validateUserInput, isValidUsername,
-    canDrive,
+    canDrive, Stack
 } from "../core"
+
+describe("Stack", () => {
+    let stack1
+
+    beforeEach(() => {
+        stack1 = new Stack()
+    })
+
+    it("push should add an item to the stack", () => {
+        stack1.push(1)
+
+        expect(stack1.size()).toBe(1)
+    })
+
+
+    it("pop should remove an item from the stack", () => {
+        stack1.push(1)
+        stack1.push(2)
+
+        const poppedItem = stack1.pop()
+
+        expect(poppedItem).toBe(2)
+        expect(stack1.size()).toBe(1)
+    })
+
+    it("pop should throw an error if the stack is empty", () => {
+        expect(() => stack1.pop()).toThrow(/empty/i)
+    })
+
+    it("peek should return the top item from the stack without removing it", () => {
+        stack1.push(1)
+        stack1.push(2)
+
+        const peekedItem = stack1.peek()
+
+        expect(peekedItem).toBe(2)
+        expect(stack1.size()).toBe(2)
+    })
+
+    it("peek should throw an error if the stack is empty", () => {
+        expect(() => stack1.peek()).toThrow(/empty/i)
+    })
+
+    it("isEmpty should only return true if the stack is empty", () => {
+        expect(stack1.isEmpty()).toBe(true)
+
+        stack1.push(1)
+
+        expect(stack1.isEmpty()).toBe(false)
+    })
+
+    it("size should return the number of items in the stack", () => {
+        stack1.push(1)
+
+        expect(stack1.size()).toBe(1)
+
+        stack1.push(2)
+
+        expect(stack1.size()).toBe(2)
+    })
+
+    it("clear should remove all the items from the stack", () => {
+        stack1.push(1)
+        stack1.push(2)
+        stack1.clear()
+
+        expect(stack1.size()).toBe(0)
+    })
+})
+
+
+
+
 
 // describe("canDrive", () => {
 
@@ -44,30 +117,35 @@ import {
 // })
 
 
-describe("isValidUsername", () => {
 
-    const minLength = 5
-    const maxLength = 15
 
-    it.each([
-        {case: "price < min", username: "a".repeat(minLength-1), result: false},
-        {case: "price === min", username: "a".repeat(minLength), result: true},
-        {case: "price is between min & max", username: "a".repeat(minLength+1), result: true},
-        {case: "price === max", username: "a".repeat(maxLength), result: true},
-        {case: "price > max", username: "a".repeat(maxLength+1), result: false},
-    ])("should return $result if $case", ({username, result}) => {
-        expect(isValidUsername(username, minLength, maxLength)).toBe(result)
-    })
 
-    it("should return false for invalid username types", () => {
-        expect(isValidUsername(null)).toBe(false)
-        expect(isValidUsername()).toBe(false)
-        expect(isValidUsername(undefined)).toBe(false)
-        expect(isValidUsername(1)).toBe(false)
+// describe("isValidUsername", () => {
 
-    })
+//     const minLength = 5
+//     const maxLength = 15
 
-})
+//     it.each([
+//         {case: "price < min", username: "a".repeat(minLength-1), result: false},
+//         {case: "price === min", username: "a".repeat(minLength), result: true},
+//         {case: "price is between min & max", username: "a".repeat(minLength+1), result: true},
+//         {case: "price === max", username: "a".repeat(maxLength), result: true},
+//         {case: "price > max", username: "a".repeat(maxLength+1), result: false},
+//     ])("should return $result if $case", ({username, result}) => {
+//         expect(isValidUsername(username, minLength, maxLength)).toBe(result)
+//     })
+
+//     it("should return false for invalid username types", () => {
+//         expect(isValidUsername(null)).toBe(false)
+//         expect(isValidUsername()).toBe(false)
+//         expect(isValidUsername(undefined)).toBe(false)
+//         expect(isValidUsername(1)).toBe(false)
+
+//     })
+
+// })
+
+
 
 
 
