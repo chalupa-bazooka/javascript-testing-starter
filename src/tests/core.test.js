@@ -50,14 +50,13 @@ describe("isValidUsername", () => {
     const maxLength = 15
 
     it.each([
-        {username: "a".repeat(minLength-1), result: false},
-        {username: "a".repeat(maxLength+1), result: false},
-        {username: "a".repeat(minLength), result: true},
-        {username: "a".repeat(maxLength), result: true},
-        {username: "a".repeat(minLength+1), result: true},
-        {username: "a".repeat(maxLength-1), result: true},
-    ])("should return $result if the username's length is $username.length", ({username, result}) => {
-        expect(isValidUsername(username)).toBe(result)
+        {case: "price < min", username: "a".repeat(minLength-1), result: false},
+        {case: "price === min", username: "a".repeat(minLength), result: true},
+        {case: "price is between min & max", username: "a".repeat(minLength+1), result: true},
+        {case: "price === max", username: "a".repeat(maxLength), result: true},
+        {case: "price > max", username: "a".repeat(maxLength+1), result: false},
+    ])("should return $result if $case", ({username, result}) => {
+        expect(isValidUsername(username, minLength, maxLength)).toBe(result)
     })
 
     it("should return false for invalid username types", () => {
