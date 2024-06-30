@@ -51,6 +51,11 @@ export function isPriceInRange(price, min, max) {
 
 // Exercise: Boundary testing
 export function isValidUsername(username) {
+
+  if (typeof username !== "string") {
+    return false
+  }
+
   const minLength = 5;
   const maxLength = 15;
 
@@ -59,9 +64,21 @@ export function isValidUsername(username) {
 
 // Exercise: Boundary testing
 export function canDrive(age, countryCode) {
+
+  if (arguments.length !== 2) {
+    return "Pass 2 arguments: age (number) & country code (string)."
+  }
+
+  if (typeof age !== "number") {
+    return "Age must be a number"
+  }
+
   const legalDrivingAge = {
-    US: 16,
-    UK: 17,
+    USA: 16,
+    GBR: 17,
+    MEX: 15,
+    GEO: 17,
+    RUS: 18,
   };
 
   if (!legalDrivingAge[countryCode]) {
