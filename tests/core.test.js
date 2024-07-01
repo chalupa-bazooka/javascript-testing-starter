@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest"
 import {
     getCoupons, calculateDiscount, validateUserInput, isValidUsername,
     canDrive, Stack
-} from "../core"
+} from "../src/core"
 
 describe("Stack", () => {
     let stack1
